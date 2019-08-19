@@ -1,0 +1,23 @@
+body {
+  background-color: #e8ecf0 !important;
+}
+.main > div {
+  min-height: 60vh;
+}
+.main::before {
+  background: #132230;
+  content: ' ';
+  display: block;
+  height: 264px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: -10;
+}
+.rounded-lg {
+  border-radius: 0.5rem !important;
+}
+.navbar {
+  background: #132230 !important;
+}
