@@ -10,17 +10,16 @@ import { withFirebase } from './Firebase/context';
 
 import './App.css';
 
-const style = { marginTop: '80px' };
 function App({ firebase }) {
   return (
     <Router>
-      <div className="App">
+      <div className='App'>
         <Navbar />
-        <Container fluid style={style} className="px-md-5">
+        <Container fluid className='px-md-5'>
           <Switch>
-            <Route path="/" exact component={HomePage} />
-            <ProtectedRoute exact path="/dashboard" component={Dashboard} />
-            <ProtectedRoute path="/addtransaction" component={AddTransaction} />
+            <Route path='/' exact component={HomePage} />
+            <ProtectedRoute exact path='/dashboard' component={Dashboard} />
+            <ProtectedRoute path='/addtransaction' component={AddTransaction} />
           </Switch>
         </Container>
       </div>
