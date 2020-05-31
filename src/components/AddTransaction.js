@@ -38,7 +38,7 @@ function AddTransaction({ history }) {
   const isAmountValid = remainingAmount < amount;
   const onSubmit = (event) => {
     event.preventDefault();
-    const newID = `0${transactionList.length + 1}`;
+    const newID = transactionList ? `0${transactionList.length + 1}` : '01';
     const newTransaction = {
       name,
       receiver,
@@ -53,7 +53,9 @@ function AddTransaction({ history }) {
       remainingAmount: remainingAmount - amount,
       currency,
       totalSpent: parseInt(totalSpent) + parseInt(amount),
-      transactionList: [...transactionList, newTransaction],
+      transactionList: transactionList
+        ? [...transactionList, newTransaction]
+        : [newTransaction],
     };
     isLoading();
     firebase.transactions(uid).set(transactions);

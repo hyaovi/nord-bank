@@ -1,13 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import logo from '../assets/logo.svg';
 import Spinner from './Spinner';
-import {
-  setCurrentUser,
-  getErrors,
-  clearErrors,
-  signIn,
-  isLoading,
-} from '../actions/authActions';
+import { setCurrentUser, signIn, isLoading } from '../actions/authActions';
 import { useDispatch, useSelector } from 'react-redux';
 import FirebaseContext from '../Firebase/context';
 import {
@@ -49,26 +43,7 @@ function HomePage({ history }) {
 
   const onLogin = (event) => {
     event.preventDefault();
-    const login = async () => {
-      try {
-        dispatch(clearErrors());
-        dispatch(isLoading());
-        const userAuth = await firebase.doSignInWithEmailAndPassword(
-          email,
-          password
-        );
-        const { uid } = userAuth.user;
-        firebase.user(uid).on('value', (snapshot) => {
-          let userData = snapshot.val();
-          dispatch(signIn({ ...userData, uid }));
-        });
-        history.push('/dashboard');
-      } catch (error) {
-        dispatch(isLoading(false));
-        dispatch(getErrors(error));
-      }
-    };
-    login();
+    dispatch(signIn({ email, password }, history));
   };
   return (
     <Row className='home-page  mt-3 mt-md-5'>

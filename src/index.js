@@ -5,12 +5,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
-import Firebase, { FirebaseContext } from './Firebase';
+import { FirebaseContext, firebase } from './Firebase';
 import store from './store';
 
 ReactDOM.render(
   <Provider store={store}>
-    <FirebaseContext.Provider value={new Firebase()}>
+    <FirebaseContext.Provider value={firebase}>
       <App />
     </FirebaseContext.Provider>
   </Provider>,

@@ -14,16 +14,8 @@ code {
     monospace;
 }
 
-.btn {
-  font-size: 16px !important;
-  padding: 15px 8px !important;
-}
 
-input,
-.form-control,
-.form-control-lg {
-  padding: 25px 8px !important;
-}
+
 
 
 .spinner {

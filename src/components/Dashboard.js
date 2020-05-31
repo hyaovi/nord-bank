@@ -14,10 +14,10 @@ function Dashboard() {
   const { transactionList, loading, totalSpent, currency, uid } = useSelector(
     (state) => state.user
   );
-  firebase.user(uid).update({
-    name: 'John Wick',
-    email: 'johnwick@wicked.com',
-  });
+  // firebase.user(uid).update({
+  //   name: 'John Wick',
+  //   email: 'johnwick@wicked.com',
+  // });
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -36,8 +36,8 @@ function Dashboard() {
       ) : (
         <div className='bg-white rounded-lg  p-md-4 p-2 shadow-lg'>
           <Row className='align-items-end mb-2 mb-md-5'>
-            <Col md='2' sm='12'>
-              <h2 className='text-primary mb-0'>Transactions</h2>
+            <Col md='3' sm='12'>
+              <h3 className='text-primary mb-0'>Transactions</h3>
               <small>
                 Total spent:{' '}
                 <Badge color='light'>
@@ -52,6 +52,7 @@ function Dashboard() {
                     Filter by{' '}
                   </Label>
                   <Input
+                    className='custom-select'
                     type='select'
                     name='sortKey'
                     id='filter'

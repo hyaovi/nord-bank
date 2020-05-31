@@ -15,9 +15,9 @@ class Firebase {
     this.auth.signInWithEmailAndPassword(email, password);
   doSignOut = () => this.auth.signOut();
 
-  user = uid => this.db.ref(`users/${uid}`);
+  user = (uid) => this.db.ref(`users/${uid}`);
   users = () => this.db.ref('users');
-  transactions = uid => this.db.ref(`transactions/${uid}`);
+  transactions = (uid) => this.db.ref(`transactions/${uid}`);
 }
 
 export default Firebase;
