@@ -13,7 +13,7 @@ import './sass/App.css';
 function App() {
   return (
     <Router>
-      <Container className=''>
+      <Container fluid className=''>
         <Navbar />
 
         <Switch>

@@ -17,7 +17,6 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  Badge,
 } from 'reactstrap';
 function Navbar({ history }) {
   const firebase = useContext(FirebaseContext);
@@ -32,7 +31,7 @@ function Navbar({ history }) {
   };
 
   return isAuthenticated ? (
-    <Nbar color='dark' dark expand='md'>
+    <Nbar light expand='md'>
       <NavbarBrand tag={RRNavLink} to='/dashboard'>
         {' '}
         <img
@@ -66,11 +65,9 @@ function Navbar({ history }) {
 
         <Nav className='ml-auto' navbar>
           <NavItem>
-            <NavLink className='mr-md-5'>
-              Current account:{' '}
-              <Badge color='light' className='p-2'>
-                {`${remainingAmount}  ${currency}`}
-              </Badge>
+            <NavLink className='mr-md-5 badge-light p-3 rounded '>
+              <span className='text-dark'>Current account:</span>{' '}
+              <span className='text-primary h5'>{`${remainingAmount}  ${currency}`}</span>
             </NavLink>
           </NavItem>
           <UncontrolledDropdown nav inNavbar>
