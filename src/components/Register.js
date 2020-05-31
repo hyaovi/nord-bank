@@ -1,14 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import logo from '../assets/logo.svg';
 import Spinner from './Spinner';
-import {
-  setCurrentUser,
-  getErrors,
-  clearErrors,
-  signIn,
-  signUp,
-  isLoading,
-} from '../actions/authActions';
+import { setCurrentUser, signUp, isLoading } from '../actions/authActions';
 import { useDispatch, useSelector } from 'react-redux';
 import FirebaseContext from '../Firebase/context';
 import {

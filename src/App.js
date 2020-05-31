@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Container } from 'reactstrap';
 import ProtectedRoute from './ProtectedRoute';
 
-import './css/App.css';
+import './sass/App.css';
 
 function App() {
   return (
