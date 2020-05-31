@@ -4,7 +4,7 @@ import Table from './Table';
 import { setUserData, isLoading } from '../actions/authActions';
 import FirebaseContext from '../Firebase/context';
 import { Row, Col, Badge, Form, FormGroup, Label, Input } from 'reactstrap';
-import './Dashboard.css';
+import '../css/Dashboard.css';
 import Spinner from './Spinner';
 
 function Dashboard() {

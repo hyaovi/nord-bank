@@ -11,7 +11,6 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import FirebaseContext from '../Firebase/context';
 import {
-  Container,
   Row,
   Col,
   Button,
@@ -22,15 +21,14 @@ import {
   CardBody,
   FormFeedback,
 } from 'reactstrap';
-import './HomePage.css';
 
 function HomePage({ history }) {
   const firebase = useContext(FirebaseContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
   const error = useSelector((state) => state.error);
   const loading = useSelector((state) => state.user.loading);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -49,7 +47,7 @@ function HomePage({ history }) {
     return () => undefined;
   }, [firebase, dispatch, history]);
 
-  const onSubmit = (event) => {
+  const onLogin = (event) => {
     event.preventDefault();
     const login = async () => {
       try {
@@ -73,81 +71,80 @@ function HomePage({ history }) {
     login();
   };
   return (
-    <div className='home-page  mt-3 mt-md-5'>
-      <Container className=''>
-        <Row className='justify-content-center'>
-          <Col md={6} lg={4}>
-            {loading ? (
-              <Spinner />
-            ) : (
-              <Card className=' rounded-lg p-md-4   mt-3 mt-md-5'>
-                <CardBody>
-                  <div className=' text-center'>
-                    <img
-                      src={logo}
-                      alt='Logo'
-                      srcSet=''
-                      width='39'
-                      height='39'
-                      className='mb-0'
-                    />
-                    <h5 className='text-primary mb-2'>Nord Bank</h5>
-                  </div>
-                  <h5 className='text-center text-muted'>Login to access</h5>
-                  <Form className='py-3' onSubmit={onSubmit}>
-                    <FormGroup>
-                      <Input
-                        bsSize='lg'
-                        type='email'
-                        id='inputEmail'
-                        name='email'
-                        value={email}
-                        onChange={(event) => {
-                          setEmail(event.target.value);
-                        }}
-                        required
-                        placeholder='Enter your email'
-                      />
-                    </FormGroup>
-                    <FormGroup>
-                      <Input
-                        bsSize='lg'
-                        type='password'
-                        id='inputPassword'
-                        name='password'
-                        value={password}
-                        onChange={(event) => {
-                          setPassword(event.target.value);
-                        }}
-                        invalid={error !== null}
-                        required
-                        placeholder='Enter your password'
-                      />
-                      {error && <FormFeedback>{error.message}</FormFeedback>}
-                    </FormGroup>
+    <Row className='home-page  mt-3 mt-md-5'>
+      <Col md={6} lg={4} className='mx-auto'>
+        {loading ? (
+          <Spinner />
+        ) : (
+          <Card className=' rounded-lg p-md-4   mt-3 mt-md-5'>
+            <CardBody>
+              <div className=' text-center'>
+                <img
+                  src={logo}
+                  alt='Logo'
+                  srcSet=''
+                  width='39'
+                  height='39'
+                  className='mb-0'
+                />
+                <h5 className='text-primary mb-2'>Nord Bank</h5>
+              </div>
+              <h5 className='text-center text-muted'>Login to access</h5>
+              <Form className='py-3' onSubmit={onLogin}>
+                <FormGroup>
+                  <Input
+                    bsSize='lg'
+                    type='email'
+                    id='inputEmail'
+                    name='email'
+                    value={email}
+                    onChange={(event) => {
+                      setEmail(event.target.value);
+                    }}
+                    required
+                    placeholder='Enter your email'
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Input
+                    bsSize='lg'
+                    type='password'
+                    id='inputPassword'
+                    name='password'
+                    value={password}
+                    onChange={(event) => {
+                      setPassword(event.target.value);
+                    }}
+                    invalid={error !== null}
+                    required
+                    placeholder='Enter your password'
+                  />
+                  {error && <FormFeedback>{error.message}</FormFeedback>}
+                </FormGroup>
 
-                    <Button block color='primary' size='lg'>
-                      Submit
-                    </Button>
-                  </Form>
-                  <small>
-                    demo: email:
-                    <em>
-                      <b> johnwick@mail.com </b>
-                    </em>
-                    | password:
-                    <em>
-                      <b>123456</b>
-                    </em>
-                  </small>
-                </CardBody>
-              </Card>
-            )}
-          </Col>
-        </Row>
-      </Container>
-    </div>
+                <Button block color='primary' size='lg'>
+                  Login
+                </Button>
+              </Form>
+              <DemoCredentials />
+            </CardBody>
+          </Card>
+        )}
+      </Col>
+    </Row>
   );
 }
+const DemoCredentials = () => (
+  <small>
+    demo: email:
+    <em>
+      <b> johnwick@mail.com </b>
+    </em>
+    | password:
+    <em>
+      <b>123456</b>
+    </em>
+  </small>
+);
 
 export default HomePage;
