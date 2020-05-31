@@ -22,7 +22,7 @@ import {
   FormFeedback,
 } from 'reactstrap';
 
-function HomePage({ history }) {
+function ReigsterPage({ history }) {
   const firebase = useContext(FirebaseContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -89,11 +89,10 @@ function HomePage({ history }) {
                 />
                 <h5 className='text-primary mb-2'>Nord Bank</h5>
               </div>
-              <h5 className='text-center text-muted'>Login to access</h5>
+              <h5 className='text-center text-muted'>Register to access</h5>
               <Form className='py-3' onSubmit={onLogin}>
                 <FormGroup>
                   <Input
-                    bsSize='lg'
                     type='email'
                     id='inputEmail'
                     name='email'
@@ -107,7 +106,6 @@ function HomePage({ history }) {
                 </FormGroup>
                 <FormGroup>
                   <Input
-                    bsSize='lg'
                     type='password'
                     id='inputPassword'
                     name='password'
@@ -124,15 +122,14 @@ function HomePage({ history }) {
 
                 <p>
                   <Button block color='primary' size='lg'>
-                    Login
+                    Register
                   </Button>
                   <hr />
-                  <a className='text-center' color='primary' href='/register'>
-                    Regsiter
+                  <a className='text-center' color='primary' href='/'>
+                    Login
                   </a>
                 </p>
               </Form>
-              <DemoCredentials />
             </CardBody>
           </Card>
         )}
@@ -140,17 +137,5 @@ function HomePage({ history }) {
     </Row>
   );
 }
-const DemoCredentials = () => (
-  <small>
-    demo: email:
-    <em>
-      <b> johnwick@mail.com </b>
-    </em>
-    | password:
-    <em>
-      <b>123456</b>
-    </em>
-  </small>
-);
 
-export default HomePage;
+export default ReigsterPage;

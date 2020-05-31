@@ -1,5 +1,6 @@
 import React from 'react';
 import HomePage from './components/HomePage';
+import Register from './components/Register';
 import Dashboard from './components/Dashboard';
 import Navbar from './components/Navbar';
 import AddTransaction from './components/AddTransaction';
@@ -17,6 +18,7 @@ function App() {
 
         <Switch>
           <Route path='/' exact component={HomePage} />
+          <Route path='/register' exact component={Register} />
           <ProtectedRoute exact path='/dashboard' component={Dashboard} />
           <ProtectedRoute path='/addtransaction' component={AddTransaction} />
         </Switch>
