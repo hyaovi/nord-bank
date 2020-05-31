@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import logo from '../assets/logo.svg';
 import Spinner from './Spinner';
 import {
@@ -9,7 +9,7 @@ import {
   isLoading,
 } from '../actions/authActions';
 import { useDispatch, useSelector } from 'react-redux';
-import { withFirebase } from '../Firebase/context';
+import FirebaseContext from '../Firebase/context';
 import {
   Container,
   Row,
@@ -24,7 +24,8 @@ import {
 } from 'reactstrap';
 import './HomePage.css';
 
-function HomePage({ history, firebase }) {
+function HomePage({ history }) {
+  const firebase = useContext(FirebaseContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const error = useSelector((state) => state.error);
@@ -149,4 +150,4 @@ function HomePage({ history, firebase }) {
   );
 }
 
-export default withFirebase(HomePage);
+export default HomePage;

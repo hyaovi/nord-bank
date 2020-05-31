@@ -6,25 +6,23 @@ import AddTransaction from './components/AddTransaction';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Container } from 'reactstrap';
 import ProtectedRoute from './ProtectedRoute';
-import { withFirebase } from './Firebase/context';
 
 import './App.css';
 
-function App({ firebase }) {
+function App() {
   return (
     <Router>
-      <div className='App'>
+      <Container className=''>
         <Navbar />
-        <Container fluid className='px-md-5'>
-          <Switch>
-            <Route path='/' exact component={HomePage} />
-            <ProtectedRoute exact path='/dashboard' component={Dashboard} />
-            <ProtectedRoute path='/addtransaction' component={AddTransaction} />
-          </Switch>
-        </Container>
-      </div>
+
+        <Switch>
+          <Route path='/' exact component={HomePage} />
+          <ProtectedRoute exact path='/dashboard' component={Dashboard} />
+          <ProtectedRoute path='/addtransaction' component={AddTransaction} />
+        </Switch>
+      </Container>
     </Router>
   );
 }
 
-export default withFirebase(App);
+export default App;
