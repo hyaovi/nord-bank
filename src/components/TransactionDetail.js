@@ -123,7 +123,10 @@ function AddTransaction({ history }) {
                         id='inputComment'
                         name='comment'
                         disabled
-                        value={!!details.comment || 'No commnent...'}
+                        value={
+                          (!!details.comment && details.comment) ||
+                          'No commnent...'
+                        }
                       />
                     </FormGroup>
                   </Form>
