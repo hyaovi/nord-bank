@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useSelector } from 'react-redux';
-import { withFirebase } from '../Firebase/context';
+import FirebaseContext from '../Firebase/context';
 import Spinner from './Spinner';
 import { isLoading } from '../actions/authActions';
 import {
@@ -13,10 +13,11 @@ import {
   FormGroup,
   Label,
   Input,
-  FormFeedback
+  FormFeedback,
 } from 'reactstrap';
 
-function AddTransaction({ history, firebase }) {
+function AddTransaction({ history }) {
+  const firebase = useContext(FirebaseContext);
   const [amount, setAmount] = useState('');
   const [date, setDate] = useState('');
   const [receiverAccount, setReceiverAccount] = useState('');
@@ -31,13 +32,13 @@ function AddTransaction({ history, firebase }) {
     totalSpent,
     currency,
     uid,
-    loading
-  } = useSelector(state => state.user);
+    loading,
+  } = useSelector((state) => state.user);
 
   const isAmountValid = remainingAmount < amount;
-  const onSubmit = event => {
+  const onSubmit = (event) => {
     event.preventDefault();
-    const newID = `0${transactionList.length + 1}`;
+    const newID = transactionList ? `0${transactionList.length + 1}` : '01';
     const newTransaction = {
       name,
       receiver,
@@ -46,13 +47,15 @@ function AddTransaction({ history, firebase }) {
       date,
       comment,
       status,
-      id: newID
+      id: newID,
     };
     const transactions = {
       remainingAmount: remainingAmount - amount,
       currency,
       totalSpent: parseInt(totalSpent) + parseInt(amount),
-      transactionList: [...transactionList, newTransaction]
+      transactionList: transactionList
+        ? [...transactionList, newTransaction]
+        : [newTransaction],
     };
     isLoading();
     firebase.transactions(uid).set(transactions);
@@ -60,105 +63,105 @@ function AddTransaction({ history, firebase }) {
   };
 
   return (
-    <div className="main ">
+    <div className='main '>
       <br />
       <br />
       {loading ? (
         <Spinner />
       ) : (
-        <div className="bg-white rounded-lg  p-md-4 p-2">
-          <Row className="justify-content-center">
-            <Col md="5" sm="8">
-              <Card className="border-0">
+        <div className='bg-white rounded-lg  p-md-4 p-2'>
+          <Row className='justify-content-center'>
+            <Col md='5' sm='8'>
+              <Card className='border-0'>
                 <CardBody>
                   <h4>New transaction</h4>
-                  <Form className="py-4" onSubmit={onSubmit}>
+                  <Form className='py-4' onSubmit={onSubmit}>
                     <FormGroup>
-                      <Label for="inputAmount">Amount *</Label>
+                      <Label for='inputAmount'>Amount *</Label>
                       <Input
                         invalid={isAmountValid}
-                        type="number"
-                        id="inputAmount"
-                        name="amount"
-                        min="8"
+                        type='number'
+                        id='inputAmount'
+                        name='amount'
+                        min='8'
                         value={amount}
-                        onChange={event => {
+                        onChange={(event) => {
                           setAmount(event.target.value);
                         }}
                         required
-                        placeholder="Amount"
+                        placeholder='Amount'
                       />
                       <FormFeedback>
                         Oh noes! you don't have such money
                       </FormFeedback>
                     </FormGroup>
                     <FormGroup>
-                      <Label for="inputName">Name *</Label>
+                      <Label for='inputName'>Name *</Label>
                       <Input
-                        type="text"
-                        id="inputName"
-                        name="name"
+                        type='text'
+                        id='inputName'
+                        name='name'
                         value={name}
-                        onChange={event => {
+                        onChange={(event) => {
                           setName(event.target.value);
                         }}
                         required
-                        placeholder="Name"
+                        placeholder='Name'
                       />
                     </FormGroup>
                     <FormGroup>
-                      <Label for="inputDate">Pick a date</Label>
+                      <Label for='inputDate'>Pick a date</Label>
                       <Input
-                        type="date"
-                        id="inputDate"
-                        name="date"
+                        type='date'
+                        id='inputDate'
+                        name='date'
                         value={date}
-                        onChange={event => {
+                        onChange={(event) => {
                           setDate(event.target.value);
                         }}
                         required
                       />
                     </FormGroup>
                     <FormGroup>
-                      <Label for="inputReceiver">Receiver account</Label>
+                      <Label for='inputReceiver'>Receiver account</Label>
                       <Input
-                        type="number"
-                        id="inputReceiver"
-                        name="receiverAccount"
+                        type='number'
+                        id='inputReceiver'
+                        name='receiverAccount'
                         value={receiverAccount}
-                        onChange={event => {
+                        onChange={(event) => {
                           setReceiverAccount(event.target.value);
                         }}
                         required
-                        placeholder="0000-0000"
+                        placeholder='0000-0000'
                       />
                     </FormGroup>
                     <FormGroup>
-                      <Label for="inputReceiverName">Receiver name</Label>
+                      <Label for='inputReceiverName'>Receiver name</Label>
                       <Input
-                        type="text"
-                        id="inputReceiverName"
-                        name="receiver"
+                        type='text'
+                        id='inputReceiverName'
+                        name='receiver'
                         value={receiver}
-                        onChange={event => {
+                        onChange={(event) => {
                           setReceiver(event.target.value);
                         }}
                         required
-                        placeholder="Sergey Snow"
+                        placeholder='Sergey Snow'
                       />
                     </FormGroup>
                     <FormGroup>
-                      <Label for="inputStatus">Satus</Label>
+                      <Label for='inputStatus'>Satus</Label>
                       <Input
-                        type="select"
-                        id="inputStatus"
-                        name="status"
+                        type='select'
+                        id='inputStatus'
+                        name='status'
                         value={status}
-                        onChange={event => {
+                        onChange={(event) => {
                           setStatus(event.target.value);
                         }}
                         required
-                        placeholder="pending... "
+                        placeholder='pending... '
                       >
                         <option>success</option>
                         <option>failed</option>
@@ -166,19 +169,19 @@ function AddTransaction({ history, firebase }) {
                       </Input>
                     </FormGroup>
                     <FormGroup>
-                      <Label for="inputComment">Comment</Label>
+                      <Label for='inputComment'>Comment</Label>
                       <Input
-                        type="textarea"
-                        id="inputComment"
-                        name="comment"
+                        type='textarea'
+                        id='inputComment'
+                        name='comment'
                         value={comment}
-                        onChange={event => {
+                        onChange={(event) => {
                           setComment(event.target.value);
                         }}
-                        placeholder="comment transaction... "
+                        placeholder='comment transaction... '
                       />
                     </FormGroup>
-                    <Button disabled={isAmountValid} block color="primary">
+                    <Button disabled={isAmountValid} block color='primary'>
                       Submit
                     </Button>
                   </Form>
@@ -192,4 +195,4 @@ function AddTransaction({ history, firebase }) {
   );
 }
 
-export default withFirebase(AddTransaction);
+export default AddTransaction;

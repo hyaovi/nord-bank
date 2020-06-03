@@ -1,0 +1,33 @@
+.main > .logs {
+  min-height: 60vh;
+}
+
+.main::before {
+  background: #eaedf1;
+  content: ' ';
+  display: block;
+  height: 464px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: -10;
+}
+
+.rounded-lg {
+  border-radius: 0.5rem !important;
+}
+
+.navbar {
+  background: #eaedf1 !important;
+}
+.icon-container {
+  padding: 12px;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+}
