@@ -33,7 +33,7 @@ export const signUp = ({ email, password }, history) => async (dispatch) => {
 
     firebase.user(uid).on('value', (snapshot) => {
       let userData = snapshot.val();
-      localStorage.setItem('userData', JSON.stringify(userData));
+      localStorage.setItem('userData', JSON.stringify({ uid, ...userData }));
       return { type: LOGIN, payload: { ...userData, uid } };
     });
   } catch (error) {
@@ -54,7 +54,7 @@ export const signIn = ({ email, password }, history) => async (dispatch) => {
     const { uid } = userAuth.user;
     firebase.user(uid).on('value', (snapshot) => {
       let userData = snapshot.val();
-      localStorage.setItem('userData', JSON.stringify(userData));
+      localStorage.setItem('userData', JSON.stringify({ ...userData, uid }));
       return { type: LOGIN, payload: { ...userData, uid } };
     });
     history.push('/dashboard');
@@ -67,6 +67,11 @@ export const setCurrentUser = (history, authUser) => (dispatch) => {
   dispatch({ type: LOGIN, payload: authUser });
   dispatch(isLoading(false));
   history.push('/dashboard');
+};
+
+export const setUser = (authUser) => (dispatch) => {
+  dispatch({ type: LOGIN, payload: authUser });
+  dispatch(isLoading(false));
 };
 export const userAuth = (dispatch) => {
   dispatch({ type: LOGIN });
@@ -88,9 +93,9 @@ export const isLoading = (loading = true) => ({
   payload: loading,
 });
 
-export const setUserData = (transactions) => {
-  return {
+export const setUserData = (transactions) => (dispatch) => {
+  dispatch({
     type: GET_USER_DATA,
     payload: transactions,
-  };
+  });
 };

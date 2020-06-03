@@ -67,7 +67,9 @@ function Navbar({ history }) {
           <NavItem>
             <NavLink className='mr-md-5 badge-light p-3 rounded '>
               <span className='text-dark'>Current account:</span>{' '}
-              <span className='text-primary h5'>{`${remainingAmount}  ${currency}`}</span>
+              <span className='text-primary h5'>{`${remainingAmount}  ${
+                currency || ''
+              }`}</span>
             </NavLink>
           </NavItem>
           <UncontrolledDropdown nav inNavbar>

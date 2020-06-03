@@ -1,8 +1,9 @@
 import React from 'react';
 import { Table as TableStrap, Badge } from 'reactstrap';
 import { sortBy } from 'lodash';
+import { useHistory } from 'react-router-dom';
 
-const StatusColor = status => {
+const StatusColor = (status) => {
   if (status.toLowerCase() === 'failed') {
     return 'danger';
   }
@@ -12,22 +13,23 @@ const StatusColor = status => {
   return 'dark';
 };
 const SORTS = {
-  NONE: list => list,
-  Name: list => sortBy(list, 'name'),
-  Receiver: list => sortBy(list, 'receiver'),
-  Date: list => sortBy(list, 'date').reverse(),
-  Amount: list => sortBy(list, 'amount').reverse()
+  NONE: (list) => list,
+  Name: (list) => sortBy(list, 'name'),
+  Receiver: (list) => sortBy(list, 'receiver'),
+  Date: (list) => sortBy(list, 'date').reverse(),
+  Amount: (list) => sortBy(list, 'amount').reverse(),
 };
 
 const StatusBadge = ({ status }) => (
   <Badge color={StatusColor(status)}>{status}</Badge>
 );
-const isSearched = searchTerm => transaction =>
+const isSearched = (searchTerm) => (transaction) =>
   transaction.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
   transaction.receiver.toLowerCase().includes(searchTerm.toLowerCase());
 function Table({ transactions, userCurrency, searchTerm, sortKey }) {
+  const history = useHistory();
   return (
-    <div className="my-4">
+    <div className='my-4'>
       {transactions && (
         <TableStrap bordered hover responsive>
           <thead>
@@ -46,8 +48,11 @@ function Table({ transactions, userCurrency, searchTerm, sortKey }) {
             {SORTS[sortKey](transactions)
               .filter(isSearched(searchTerm))
               .map((transaction, index) => (
-                <tr key={transaction.id}>
-                  <th scope="row">{index + 1}</th>
+                <tr
+                  key={transaction.id}
+                  onClick={() => history.push(`/transaction/${transaction.id}`)}
+                >
+                  <th scope='row'>{index + 1}</th>
                   <td>{transaction.name}</td>
                   <td>{transaction.receiver}</td>
                   <td>{transaction.receiverAccount}</td>

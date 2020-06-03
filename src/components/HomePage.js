@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState } from 'react';
 import logo from '../assets/logo.svg';
 import Spinner from './Spinner';
-import { setCurrentUser, signIn, isLoading } from '../actions/authActions';
+import { signIn } from '../actions/authActions';
 import { useDispatch, useSelector } from 'react-redux';
-import FirebaseContext from '../Firebase/context';
+import { Redirect } from 'react-router-dom';
 import {
   Row,
   Col,
@@ -17,7 +17,8 @@ import {
 } from 'reactstrap';
 
 function HomePage({ history }) {
-  const firebase = useContext(FirebaseContext);
+  const { isAuthenticated } = useSelector((state) => state.user);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -25,27 +26,13 @@ function HomePage({ history }) {
   const loading = useSelector((state) => state.user.loading);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const subscribe = () =>
-      firebase.auth.onAuthStateChanged((auth) => {
-        if (auth) {
-          dispatch(isLoading());
-          const { uid } = auth;
-          firebase.user(uid).on('value', (snapshot) => {
-            const userData = snapshot.val();
-            dispatch(setCurrentUser(history, { uid, ...userData }));
-          });
-        }
-      });
-    subscribe();
-    return () => undefined;
-  }, [firebase, dispatch, history]);
-
   const onLogin = (event) => {
     event.preventDefault();
     dispatch(signIn({ email, password }, history));
   };
-  return (
+  return isAuthenticated ? (
+    <Redirect to='/dashboard' />
+  ) : (
     <Row className='home-page  mt-3 mt-md-5'>
       <Col md={6} lg={5} className='mx-auto'>
         {loading ? (
@@ -101,7 +88,9 @@ function HomePage({ history }) {
                   <Button block color='primary' size='lg'>
                     Login
                   </Button>
-                  <hr />
+                </p>
+                <hr />
+                <p>
                   <a className='text-center' color='primary' href='/register'>
                     Regsiter
                   </a>
