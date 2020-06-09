@@ -1,6 +1,8 @@
-# Project Title
+# Nord Bank
 
-Nord Bank, an online web application for expense tracking
+Nord Bank, an online web application for transactions tracking
+
+Demo [here](https://nord-bank.netlify.app/).
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -15,10 +17,6 @@ In the project directory run:
 
 You will need to download and install [NodeJS](https://nodejs.org/).
 
-```
-Give examples
-```
-
 ### Installing
 
 In the project directory run:
@@ -26,15 +24,6 @@ In the project directory run:
 Start the dev server by running:
 
 ## `npm start`
-
-## Login demo Credentials
-
-email:`johnwick@mail.com`
-password:`123456`
-
-## Deployment
-
-This project is still at its earlier developpment stage
 
 ## Built With
 
