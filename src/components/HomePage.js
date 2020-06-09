@@ -3,7 +3,7 @@ import logo from '../assets/logo.svg';
 import Spinner from './Spinner';
 import { signIn } from '../actions/authActions';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import {
   Row,
   Col,
@@ -34,7 +34,7 @@ function HomePage({ history }) {
     <Redirect to='/dashboard' />
   ) : (
     <Row className='home-page  mt-3 mt-md-5'>
-      <Col md={6} lg={5} className='mx-auto'>
+      <Col md={6} lg={4} className='mx-auto'>
         {loading ? (
           <Spinner />
         ) : (
@@ -90,13 +90,13 @@ function HomePage({ history }) {
                   </Button>
                 </p>
                 <hr />
-                <p>
+                <p className='d-flex justify-content-between'>
                   <a className='text-center' color='primary' href='/register'>
                     Regsiter
                   </a>
+                  <DemoAccountBtn />
                 </p>
               </Form>
-              <DemoCredentials />
             </CardBody>
           </Card>
         )}
@@ -104,17 +104,23 @@ function HomePage({ history }) {
     </Row>
   );
 }
-const DemoCredentials = () => (
-  <small>
-    demo: email:
-    <em>
-      <b> johnwick@mail.com </b>
-    </em>
-    | password:
-    <em>
-      <b>123456</b>
-    </em>
-  </small>
-);
+
+// DEMO ACCOUNT BUTTON
+export const DemoAccountBtn = () => {
+  const EMAIL = 'johnwick@mail.com';
+  const PASSWORD = '123456';
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const launchDemo = (event) => {
+    event.preventDefault();
+    console.log(EMAIL);
+    dispatch(signIn({ email: EMAIL, password: PASSWORD }, history));
+  };
+  return (
+    <button className='btn btn-secondary px-5' onClick={launchDemo}>
+      Demo
+    </button>
+  );
+};
 
 export default HomePage;

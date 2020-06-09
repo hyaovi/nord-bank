@@ -15,6 +15,7 @@ import {
   CardBody,
   FormFeedback,
 } from 'reactstrap';
+import { DemoAccountBtn } from './HomePage';
 
 function ReigsterPage({ history }) {
   const firebase = useContext(FirebaseContext);
@@ -47,7 +48,7 @@ function ReigsterPage({ history }) {
   };
   return (
     <Row className='home-page  mt-3 mt-md-5'>
-      <Col md={6} lg={5} className='mx-auto'>
+      <Col md={6} lg={4} className='mx-auto'>
         {loading ? (
           <Spinner />
         ) : (
@@ -94,15 +95,15 @@ function ReigsterPage({ history }) {
                   />
                   {error && <FormFeedback>{error.message}</FormFeedback>}
                 </FormGroup>
-
-                <p>
-                  <Button block color='primary' size='lg'>
-                    Register
-                  </Button>
-                  <hr />
+                <Button block color='primary' size='lg'>
+                  Register
+                </Button>
+                <hr />
+                <p className='d-flex justify-content-between'>
                   <a className='text-center' color='primary' href='/'>
                     Login
                   </a>
+                  <DemoAccountBtn />
                 </p>
               </Form>
             </CardBody>

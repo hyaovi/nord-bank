@@ -47,6 +47,7 @@ export const signIn = ({ email, password }, history) => async (dispatch) => {
   try {
     dispatch(clearErrors());
     dispatch(isLoading());
+    console.log(email, password);
     const userAuth = await firebase.doSignInWithEmailAndPassword(
       email,
       password
@@ -85,9 +86,12 @@ export const clearErrors = () => ({
   type: CLEAR_ERRORS,
 });
 
-export const logOut = () => ({
-  type: LOGOUT,
-});
+export const logOut = () => {
+  localStorage.removeItem('userData');
+  return {
+    type: LOGOUT,
+  };
+};
 export const isLoading = (loading = true) => ({
   type: LOADING,
   payload: loading,
